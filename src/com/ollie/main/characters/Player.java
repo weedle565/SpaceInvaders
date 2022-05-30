@@ -2,6 +2,7 @@ package com.ollie.main.characters;
 
 import com.ollie.main.Game;
 import com.ollie.main.image.SpriteHandler;
+import com.ollie.main.sound.SoundHandler;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -34,6 +35,7 @@ public class Player extends GameObject  {
 
         Bullet b = new Bullet(super.getX(), super.getY(), 2, 2, 0, this);
         Game.getBullets().add(b);
+
 
     }
 

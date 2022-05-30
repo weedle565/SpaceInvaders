@@ -2,13 +2,17 @@ package com.ollie.main;
 
 import com.ollie.main.characters.*;
 import com.ollie.main.screens.Dead;
+import com.ollie.main.sound.SoundHandler;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 
@@ -22,6 +26,9 @@ public class Game extends JPanel implements ActionListener {
     private static ArrayList<Bullet> bullets;
     private static ArrayList<Explosion> explosions;
     private static ArrayList<Barrier> barriers;
+
+    private static SoundHandler sound;
+    private static SoundHandler explosion;
 
     public Game(){
         initGame();
@@ -38,6 +45,20 @@ public class Game extends JPanel implements ActionListener {
         barriers = new ArrayList<>();
 
         dead = false;
+
+        try {
+            sound = new SoundHandler("src/resources/sounds/PlayerShot.wav");
+            explosion = new SoundHandler("src/resources/sounds/explosion-1.wav");
+
+            SoundHandler background = new SoundHandler("src/resources/sounds/background.wav");
+
+            background.restart(true);
+        }catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+
+            e.printStackTrace();
+
+        }
+
 
         p = new Player(640, 650, 0, 3, 5);
 
@@ -123,11 +144,18 @@ public class Game extends JPanel implements ActionListener {
         try {
             for (Bullet j : bullets) {
 
-                checkAlienCollision(j);
+                try {
+                    checkAlienCollision(j);
 
-                checkPlayerCollision(j);
+                    checkPlayerCollision(j);
 
-                checkBarrierCollision(j);
+                    checkBarrierCollision(j);
+                } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+
+                    e.printStackTrace();
+
+                }
+
 
             }
         } catch (ConcurrentModificationException ignore){
@@ -136,7 +164,7 @@ public class Game extends JPanel implements ActionListener {
 
     }
 
-    private void checkBarrierCollision(Bullet j){
+    private void checkBarrierCollision(Bullet j) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
 
         for(Barrier barrier : barriers){
             if(j.getCollisionDetector().intersects(barrier.getCollisionDetector())) {
@@ -150,13 +178,15 @@ public class Game extends JPanel implements ActionListener {
                 j.destroy();
 
                 barrier.addStage();
+
+                explosion.restart(false);
                 return;
 
             }
         }
     }
 
-    private void checkPlayerCollision(Bullet j){
+    private void checkPlayerCollision(Bullet j) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         if(j.getCollisionDetector().intersects(p.getCollisionDetector())){
             Explosion e = new Explosion(p.getX(), p.getY(), 4, 2, 5);
 
@@ -169,12 +199,14 @@ public class Game extends JPanel implements ActionListener {
 
             p.setX(-100);
 
+            explosion.restart(false);
             dead = true;
+
 
         }
     }
 
-    private void checkAlienCollision(Bullet j){
+    private void checkAlienCollision(Bullet j) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
 
         for(Alien o : aliens){
             if(o.getCollisionDetector().intersects(j.getCollisionDetector()) && j.getShooter() instanceof Player){
@@ -188,7 +220,7 @@ public class Game extends JPanel implements ActionListener {
                 e.animate(this.getGraphics());
 
                 j.destroy();
-
+                explosion.restart(false);
                 return;
 
             }
@@ -261,7 +293,14 @@ public class Game extends JPanel implements ActionListener {
 
                 case KeyEvent.VK_D -> p.move(3);
                 case KeyEvent.VK_A -> p.move(-3);
-                case KeyEvent.VK_SPACE -> p.shoot();
+                case KeyEvent.VK_SPACE ->{
+                    p.shoot();
+                    try {
+                        sound.restart(false);
+                    } catch (IOException | LineUnavailableException | UnsupportedAudioFileException ex) {
+                        ex.printStackTrace();
+                    }
+                }
 
             }
 

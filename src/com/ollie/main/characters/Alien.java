@@ -2,9 +2,13 @@ package com.ollie.main.characters;
 
 import com.ollie.main.Game;
 import com.ollie.main.image.SpriteHandler;
+import com.ollie.main.sound.SoundHandler;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Random;
 
 public class Alien extends GameObject {
@@ -15,12 +19,22 @@ public class Alien extends GameObject {
     private final BufferedImage[] animate = new BufferedImage[2];
     private int direction;
 
+    private SoundHandler shot;
+
     public Alien(int x, int y, int gridX, int gridY, int health) {
         super(x, y, gridX, gridY, health);
 
         which = 0;
         shootCounter = 0;
         direction = 1;
+
+        try {
+            shot = new SoundHandler("src/resources/sounds/alienShot.wav");
+        }catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+
+            e.printStackTrace();
+
+        }
 
         animate[0] = super.getSprite();
         animate[1] = SpriteHandler.getSprite(gridX+1, gridY);
@@ -56,6 +70,14 @@ public class Alien extends GameObject {
 
             Bullet b = new Bullet(super.getX(), super.getY(), 2, 2, 0, this);
             Game.getBullets().add(b);
+
+            try {
+                shot.restart(false);
+            } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+
+                e.printStackTrace();
+
+            }
 
             shootCounter = 0;
         }
