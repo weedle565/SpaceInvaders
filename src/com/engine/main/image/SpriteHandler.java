@@ -1,4 +1,6 @@
-package com.ollie.main.image;
+package com.engine.main.image;
+
+import com.engine.main.GameClass;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -8,7 +10,6 @@ import java.io.IOException;
 public class SpriteHandler{
 
     private static BufferedImage spriteSheet;
-    private static final int TILE_SIZE = 97;
 
 
     public static BufferedImage loadImage(String dir) {
@@ -27,10 +28,11 @@ public class SpriteHandler{
     public static BufferedImage getSprite(int xGrid, int yGrid){
 
         if(spriteSheet == null){
-            spriteSheet = loadImage("spriteSheet2");
+            spriteSheet = loadImage("spriteSheet");
         }
 
-        return spriteSheet.getSubimage(xGrid*TILE_SIZE, yGrid*TILE_SIZE, TILE_SIZE, TILE_SIZE);
+        System.out.println(GameClass.getTileSize());
+        return spriteSheet.getSubimage(xGrid*GameClass.getTileSize(), yGrid*GameClass.getTileSize(), GameClass.getTileSize(), GameClass.getTileSize());
 
     }
 

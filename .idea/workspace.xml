@@ -4,16 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41a92141-b577-4d67-ae35-ecb4b3a6c7fa" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/resources/sounds/PlayerShot.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/sounds/alienShot.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/sounds/background.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/sounds/explosion.wav" afterDir="false" />
+    <list default="true" id="41a92141-b577-4d67-ae35-ecb4b3a6c7fa" name="Changes" comment="Game Works, basic main menu">
+      <change afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/engine/main/GameClass.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/engine/main/image/Background.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/engine/main/image/ImageLoaderIO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/engine/main/image/SpriteHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/ollie/main/screens/MainMenu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/resources/background.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/ollie/main/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ollie/main/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/ollie/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/engine/main/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/ollie/main/characters/Alien.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ollie/main/characters/Alien.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/ollie/main/characters/Barrier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ollie/main/characters/Barrier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/ollie/main/characters/Bullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ollie/main/characters/Bullet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/ollie/main/characters/Explosion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ollie/main/characters/Explosion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/ollie/main/characters/GameObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/engine/main/rendering/GameObject.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/ollie/main/characters/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ollie/main/characters/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/ollie/main/sound/SoundHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ollie/main/sound/SoundHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/ollie/main/image/ImageLoaderIO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/ollie/main/image/SpriteHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/ollie/main/sound/SoundHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/engine/main/sound/SoundHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/SpriteSheet2.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/SpriteSheet.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/spriteSheet.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/resources/test.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +37,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
+        <option value="Record" />
+        <option value="AnnotationType" />
         <option value="Class" />
       </list>
     </option>
@@ -53,24 +68,29 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/resources/sounds" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/com/engine/main" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Ollie\Desktop\Development\SpaceInvaders\src\com\engine\main" />
       <recent name="C:\Users\Ollie\Desktop\Development\SpaceInvaders\src\resources\sounds" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Ollie\Desktop\Development\SpaceInvaders\src\resources" />
     </key>
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.ollie.main.Main" />
+      <option name="MAIN_CLASS_NAME" value="com.engine.main.Main" />
       <module name="SpaceInvaders" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.ollie.main.*" />
+          <option name="PATTERN" value="com.engine.main.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -94,7 +114,15 @@
       <updated>1653801418872</updated>
       <workItem from="1653801419974" duration="21177000" />
       <workItem from="1653874609921" duration="7126000" />
-      <workItem from="1653889977456" duration="2835000" />
+      <workItem from="1653889977456" duration="3184000" />
+      <workItem from="1653913662242" duration="1020000" />
+      <workItem from="1653966370400" duration="68000" />
+      <workItem from="1653984111346" duration="14000" />
+      <workItem from="1654734969104" duration="1902000" />
+      <workItem from="1654747084125" duration="1658000" />
+      <workItem from="1654759619172" duration="91000" />
+      <workItem from="1654928179663" duration="1943000" />
+      <workItem from="1654932375617" duration="1383000" />
     </task>
     <task id="LOCAL-00001" summary="Working animation, movement and game logic, work beginning on audio">
       <created>1653890010847</created>
@@ -103,7 +131,14 @@
       <option name="project" value="LOCAL" />
       <updated>1653890010847</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Sound works got a game">
+      <created>1653892848742</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1653892848742</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -111,17 +146,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Working animation, movement and game logic, work beginning on audio" />
-    <option name="LAST_COMMIT_MESSAGE" value="Working animation, movement and game logic, work beginning on audio" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/ollie/main/characters/Player.java</url>
-          <line>28</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Sound works got a game" />
+    <MESSAGE value="Game Works, basic main menu" />
+    <option name="LAST_COMMIT_MESSAGE" value="Game Works, basic main menu" />
   </component>
 </project>

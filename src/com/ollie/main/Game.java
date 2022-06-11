@@ -1,24 +1,27 @@
 package com.ollie.main;
 
+import com.engine.main.GameClass;
+import com.engine.main.image.Background;
+import com.engine.main.rendering.GameObject;
 import com.ollie.main.characters.*;
 import com.ollie.main.screens.Dead;
-import com.ollie.main.sound.SoundHandler;
+import com.engine.main.sound.SoundHandler;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 
-public class Game extends JPanel implements ActionListener {
+public class Game extends GameClass {
 
     private static Player p;
+    private static Background b;
 
     private static boolean dead;
 
@@ -30,19 +33,25 @@ public class Game extends JPanel implements ActionListener {
     private static SoundHandler sound;
     private static SoundHandler explosion;
 
-    public Game(){
-        initGame();
-    }
+    public Game() {
+        super(97, "Invaders of Space");
 
-    public void initGame(){
+        setPreferredSize(new Dimension(1280, 720));
+    //    addKeyListener(new Movement());
 
-        setFocusable(true);
-        addKeyListener(new Movement());
+        b = new Background();
 
         aliens = new ArrayList<>();
         bullets = new ArrayList<>();
         explosions = new ArrayList<>();
         barriers = new ArrayList<>();
+
+    }
+
+    public void initGame(){
+
+        requestFocusInWindow();
+        requestFocus();
 
         dead = false;
 
@@ -58,7 +67,6 @@ public class Game extends JPanel implements ActionListener {
             e.printStackTrace();
 
         }
-
 
         p = new Player(640, 650, 0, 3, 5);
 
@@ -145,6 +153,7 @@ public class Game extends JPanel implements ActionListener {
             for (Bullet j : bullets) {
 
                 try {
+
                     checkAlienCollision(j);
 
                     checkPlayerCollision(j);
@@ -158,7 +167,7 @@ public class Game extends JPanel implements ActionListener {
 
 
             }
-        } catch (ConcurrentModificationException ignore){
+        } catch (ConcurrentModificationException ignored){
 
         }
 
@@ -231,8 +240,7 @@ public class Game extends JPanel implements ActionListener {
     @Override
     public void paintComponent(Graphics g){
 
-        g.setColor(Color.BLACK);
-        g.fillRect(0, 0, getWidth(), getHeight());
+        b.drawImage(g);
 
         aliens.iterator().forEachRemaining((a) -> a.drawImage(g));
 
@@ -284,7 +292,7 @@ public class Game extends JPanel implements ActionListener {
         return explosions;
     }
 
-    private static class Movement extends KeyAdapter {
+    public static class Movement extends KeyAdapter {
 
         @Override
         public void keyPressed(KeyEvent e){

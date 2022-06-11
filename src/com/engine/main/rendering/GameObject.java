@@ -1,7 +1,6 @@
-package com.ollie.main.characters;
+package com.engine.main.rendering;
 
-import com.ollie.main.image.ImageLoaderIO;
-import com.ollie.main.image.SpriteHandler;
+import com.engine.main.image.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
