@@ -1,5 +1,7 @@
 package com.engine.main.sound;
 
+import com.engine.main.Main;
+
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
@@ -34,17 +36,52 @@ public class SoundHandler {
         clip = AudioSystem.getClip();
 
         clip.open(audioStream);
-
+        thestatus = "play";
         //clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
     public void play()
     {
+        thestatus = "play";
+        FloatControl volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+
+        System.out.println(Main.getSettings().getVolume());
+
+        volume.setValue(volume.getMinimum() * (1 - Main.getSettings().getVolume() / 100.0f));
 
         //start the clip
         clip.start();
 
-        thestatus = "play";
+        System.out.println(volume.getValue() + " volume");
+
+
+    }
+
+    public void pause(){
+
+        if(thestatus.equals("paused")){
+            System.out.println("Audio already paused");
+            return;
+        }
+
+        this.nowFrame = this.clip.getMicrosecondPosition();
+
+        clip.start();
+        thestatus = "paused";
+
+    }
+
+    public void resumeAudio(boolean back) throws UnsupportedAudioFileException, IOException, LineUnavailableException{
+
+        if(thestatus.equals("play")){
+            System.out.println("The audio is already playing");
+            return;
+        }
+
+        clip.close();
+        resetAudioStream(back);
+        clip.setMicrosecondPosition(nowFrame);
+        play();
     }
 
     // reset the audio stream
@@ -53,6 +90,7 @@ public class SoundHandler {
     {
         audioStream = AudioSystem.getAudioInputStream(
                 new File(path).getAbsoluteFile());
+
         clip.open(audioStream);
 
         if(back){

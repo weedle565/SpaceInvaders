@@ -4,29 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41a92141-b577-4d67-ae35-ecb4b3a6c7fa" name="Changes" comment="Game Works, basic main menu">
-      <change afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/engine/main/GameClass.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/engine/main/image/Background.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/engine/main/image/ImageLoaderIO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/engine/main/image/SpriteHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/ollie/main/screens/MainMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/background.png" afterDir="false" />
+    <list default="true" id="41a92141-b577-4d67-ae35-ecb4b3a6c7fa" name="Changes" comment="Menus and GUI works, basic settings menu works">
+      <change afterPath="$PROJECT_DIR$/src/com/engine/main/MovementHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/ollie/main/screens/Settings.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/ollie/main/screens/StopMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/engine/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/engine/main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/engine/main/rendering/GameObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/engine/main/rendering/GameObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/engine/main/sound/SoundHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/engine/main/sound/SoundHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/ollie/main/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ollie/main/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/ollie/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/engine/main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/ollie/main/characters/Alien.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ollie/main/characters/Alien.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/ollie/main/characters/Barrier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ollie/main/characters/Barrier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/ollie/main/characters/Bullet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ollie/main/characters/Bullet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/ollie/main/characters/Explosion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ollie/main/characters/Explosion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/ollie/main/characters/GameObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/engine/main/rendering/GameObject.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/ollie/main/characters/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ollie/main/characters/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/ollie/main/image/ImageLoaderIO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/ollie/main/image/SpriteHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/ollie/main/sound/SoundHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/engine/main/sound/SoundHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/SpriteSheet2.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/resources/SpriteSheet.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/spriteSheet.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/resources/test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/ollie/main/screens/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/ollie/main/screens/MainMenu.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,7 +110,10 @@
       <workItem from="1654747084125" duration="1658000" />
       <workItem from="1654759619172" duration="91000" />
       <workItem from="1654928179663" duration="1943000" />
-      <workItem from="1654932375617" duration="1383000" />
+      <workItem from="1654932375617" duration="9961000" />
+      <workItem from="1654995752284" duration="2993000" />
+      <workItem from="1655160484288" duration="15000" />
+      <workItem from="1655553485713" duration="91000" />
     </task>
     <task id="LOCAL-00001" summary="Working animation, movement and game logic, work beginning on audio">
       <created>1653890010847</created>
@@ -138,7 +129,14 @@
       <option name="project" value="LOCAL" />
       <updated>1653892848742</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Game Works, basic main menu">
+      <created>1654933782001</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1654933782001</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -148,6 +146,7 @@
     <MESSAGE value="Working animation, movement and game logic, work beginning on audio" />
     <MESSAGE value="Sound works got a game" />
     <MESSAGE value="Game Works, basic main menu" />
-    <option name="LAST_COMMIT_MESSAGE" value="Game Works, basic main menu" />
+    <MESSAGE value="Menus and GUI works, basic settings menu works" />
+    <option name="LAST_COMMIT_MESSAGE" value="Menus and GUI works, basic settings menu works" />
   </component>
 </project>

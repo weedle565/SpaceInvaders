@@ -1,6 +1,5 @@
 package com.ollie.main.characters;
 
-import com.engine.main.image.SpriteHandler;
 import com.engine.main.rendering.GameObject;
 import com.ollie.main.Game;
 

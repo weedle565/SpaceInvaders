@@ -12,53 +12,55 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class MainMenu extends JPanel {
+public class StopMenu extends JPanel {
 
     private final Main panel;
 
-    private final Rectangle startRect;
+    private final Rectangle resumeRect;
     private final Rectangle settingsRect;
 
-    private BufferedImage start;
+    private BufferedImage resume;
     private BufferedImage settings;
-    private BufferedImage title;
+    private BufferedImage menu;
 
-    public MainMenu(Main frame) {
+    public StopMenu(Main frame) {
 
         panel = frame;
 
         addMouseListener(new MouseListener());
 
         setPreferredSize(new Dimension(512, 512));
+        panel.pack();
 
         requestFocusInWindow();
 
         try {
-            start = ImageIO.read(new File("src/resources/menu/start.png"));
+            resume = ImageIO.read(new File("src/resources/menu/resume.png"));
             settings = ImageIO.read(new File("src/resources/menu/settings.png"));
-            title = ImageIO.read(new File("src/resources/menu/logo.png"));
+            menu = ImageIO.read(new File("src/resources/menu/menu.png"));
 
         } catch (IOException e){
             e.printStackTrace();
         }
 
-        startRect = new Rectangle(200, 120, start.getWidth()/3, start.getHeight()/3);
-        settingsRect = new Rectangle(190, 190, settings.getWidth()/3, settings.getHeight()/3);
+        resumeRect = new Rectangle(590, 120, resume.getWidth()/3, resume.getHeight()/3);
+        settingsRect = new Rectangle(580, 185, settings.getWidth()/3, settings.getHeight()/3);
+
     }
 
     @Override
     protected void paintComponent(Graphics g) {
 
         g.setColor(Color.black);
+
         g.fillRect(0, 0, getWidth(), getHeight());
 
-        g.drawImage(title, 170, 0, title.getWidth()/5, title.getHeight()/7, null);
+        g.drawImage(resume, 590, 120, resume.getWidth()/3, resume.getHeight()/3, null);
 
-        g.drawImage(start, 200, 120, start.getWidth()/3, start.getHeight()/3, null);
+        g.drawImage(settings, 580, 185, settings.getWidth()/3, settings.getHeight()/3, null);
 
-        g.drawImage(settings, 190, 190, settings.getWidth()/3, settings.getHeight()/3, null);
+        g.drawImage(menu, 590, 240, menu.getWidth()/3, menu.getHeight()/3, null);
 
-        g.drawRect(startRect.getLocation().x, startRect.getLocation().y, startRect.width, startRect.height);
     }
 
     private void changeFrame(JPanel swap){
@@ -67,16 +69,18 @@ public class MainMenu extends JPanel {
         EventQueue.invokeLater(() -> {
 
             if(swap instanceof Game g) {
-                Main.getMenu().setVisible(false);
-                Game.setInGame(true);
-                g.initGame();
+                Main.getStopMenu().setVisible(false);
+                Main.getFrame().validate();
                 g.requestFocus();
-                g.setVisible(true);
+                g.requestFocusInWindow();
+                g.changeBack();
+                g.repaint();
             } else if (swap instanceof Settings s){
                 this.setVisible(false);
                 s.requestFocus();
-                Main.getSettings().setVisible(true);
 
+                Main.getSettings().setMain(false);
+                Main.getSettings().setVisible(true);
             }
 
             panel.pack();
@@ -93,7 +97,7 @@ public class MainMenu extends JPanel {
 
             Point p = e.getPoint();
 
-            if( startRect.contains(p)){
+            if( resumeRect.contains(p)){
 
                 changeFrame(Main.getFrame());
 

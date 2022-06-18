@@ -9,6 +9,7 @@ public abstract class GameObject implements ImageLoaderIO {
 
     private int x;
     private int y;
+
     private int health;
 
     private boolean alive;
@@ -38,6 +39,7 @@ public abstract class GameObject implements ImageLoaderIO {
         }
     }
 
+    @SuppressWarnings("unused")
     public void drawCollision(Graphics g){
         g.setColor(Color.CYAN);
         g.drawRect(collisionDetector.x, collisionDetector.y, collisionDetector.width, collisionDetector.height);
@@ -47,6 +49,7 @@ public abstract class GameObject implements ImageLoaderIO {
         return collisionDetector;
     }
 
+    @SuppressWarnings("unused")
     public void setCollisionDetector(Rectangle collisionDetector){
         this.collisionDetector = collisionDetector;
     }
@@ -89,4 +92,13 @@ public abstract class GameObject implements ImageLoaderIO {
 
     public abstract void destroy();
 
+    @SuppressWarnings("unused")
+    public int getHealth() {
+        return health;
+    }
+
+    @SuppressWarnings("unused")
+    public void setHealth(int health) {
+        this.health = health;
+    }
 }

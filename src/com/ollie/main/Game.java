@@ -1,18 +1,17 @@
 package com.ollie.main;
 
 import com.engine.main.GameClass;
+import com.engine.main.Main;
 import com.engine.main.image.Background;
-import com.engine.main.rendering.GameObject;
+import com.engine.main.sound.SoundHandler;
 import com.ollie.main.characters.*;
 import com.ollie.main.screens.Dead;
-import com.engine.main.sound.SoundHandler;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,10 +19,17 @@ import java.util.ConcurrentModificationException;
 
 public class Game extends GameClass {
 
+    private static final int IFW = JComponent.WHEN_IN_FOCUSED_WINDOW;
+    private static final String MOVE_LEFT = "move left";
+    private static final String MOVE_RIGHT = "move right";
+    private static final String SHOOT = "shoot";
+    private static final String ESCAPE_MENU = "menu";
+
     private static Player p;
     private static Background b;
 
     private static boolean dead;
+    private static boolean inGame;
 
     private static ArrayList<Alien> aliens;
     private static ArrayList<Bullet> bullets;
@@ -32,12 +38,10 @@ public class Game extends GameClass {
 
     private static SoundHandler sound;
     private static SoundHandler explosion;
+    private static SoundHandler background;
 
     public Game() {
         super(97, "Invaders of Space");
-
-        setPreferredSize(new Dimension(1280, 720));
-    //    addKeyListener(new Movement());
 
         b = new Background();
 
@@ -46,12 +50,18 @@ public class Game extends GameClass {
         explosions = new ArrayList<>();
         barriers = new ArrayList<>();
 
+        inGame = false;
+
     }
 
     public void initGame(){
 
+        setFocusable(true);
+
         requestFocusInWindow();
         requestFocus();
+
+        setPreferredSize(new Dimension(1280, 720));
 
         dead = false;
 
@@ -59,7 +69,7 @@ public class Game extends GameClass {
             sound = new SoundHandler("src/resources/sounds/PlayerShot.wav");
             explosion = new SoundHandler("src/resources/sounds/explosion-1.wav");
 
-            SoundHandler background = new SoundHandler("src/resources/sounds/background.wav");
+            background = new SoundHandler("src/resources/sounds/background.wav");
 
             background.restart(true);
         }catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
@@ -74,6 +84,8 @@ public class Game extends GameClass {
 
         initBarriers();
 
+        initKeyBinds();
+
         initTimers();
     }
 
@@ -82,7 +94,7 @@ public class Game extends GameClass {
 
         Timer animationHandler = new Timer(300, event -> {
 
-            if(!dead) {
+            if(!dead && inGame) {
                 p.animate(this.getGraphics());
 
                 aliens.iterator().forEachRemaining((a) -> {
@@ -107,6 +119,20 @@ public class Game extends GameClass {
         animationHandler.start();
 
         t.start();
+    }
+
+    private void initKeyBinds(){
+
+        getInputMap(IFW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A, 0), MOVE_LEFT);
+        getInputMap(IFW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0), MOVE_RIGHT);
+        getInputMap(IFW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), SHOOT);
+        getInputMap(IFW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), ESCAPE_MENU);
+
+        getActionMap().put(MOVE_LEFT, new MoveAction(-3));
+        getActionMap().put(MOVE_RIGHT, new MoveAction(3));
+        getActionMap().put(SHOOT, new FireAction());
+        getActionMap().put(ESCAPE_MENU, new EscapeAction());
+
     }
 
     private void initBarriers(){
@@ -262,9 +288,12 @@ public class Game extends GameClass {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if(!dead) {
+        System.out.println(hasFocus());
+
+        if(!dead && inGame) {
+
             repaint();
-        } else {
+        } else if(dead){
 
             Dead.drawDead(getGraphics());
 
@@ -272,7 +301,44 @@ public class Game extends GameClass {
 
     }
 
-    public static GameObject getPlayer(){
+    public void changeBack(){
+
+        setVisible(true);
+
+        inGame = true;
+
+        try {
+            background.resumeAudio(true);
+            sound.resumeAudio(false);
+            explosion.resumeAudio(false);
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e ){
+            e.printStackTrace();
+        }
+        repaint();
+
+    }
+
+    public void changeFrame() {
+
+        inGame = false;
+
+        this.setVisible(false);
+
+        Main.getStopMenu().setVisible(true);
+        Main.getStopMenu().repaint();
+        Main.getStopMenu().requestFocus();
+
+        background.pause();
+        sound.pause();
+        explosion.pause();
+
+    }
+
+    public static SoundHandler getSound() {
+        return sound;
+    }
+
+    public static Player getPlayer(){
         return p;
     }
 
@@ -292,28 +358,43 @@ public class Game extends GameClass {
         return explosions;
     }
 
-    public static class Movement extends KeyAdapter {
+    public static void setInGame(boolean inGame) {
+        Game.inGame = inGame;
+    }
 
-        @Override
-        public void keyPressed(KeyEvent e){
+    private static class MoveAction extends AbstractAction {
 
-            switch (e.getKeyCode()){
+        int direction;
 
-                case KeyEvent.VK_D -> p.move(3);
-                case KeyEvent.VK_A -> p.move(-3);
-                case KeyEvent.VK_SPACE ->{
-                    p.shoot();
-                    try {
-                        sound.restart(false);
-                    } catch (IOException | LineUnavailableException | UnsupportedAudioFileException ex) {
-                        ex.printStackTrace();
-                    }
-                }
-
-            }
-
+        MoveAction(int direction){
+            this.direction = direction;
         }
 
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            p.move(direction);
+
+        }
+    }
+    private static class FireAction extends AbstractAction {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            p.shoot();
+
+        }
+    }
+
+    private class EscapeAction extends AbstractAction {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            changeFrame();
+
+        }
     }
 
 }
